@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     first_name: { type: String, minlength: 2, required: true },
     last_name: { type: String, minlength: 2, required: true },
-    username: { type: String, minlength: 4, required: true },
+    username: { type: String, minlength: 5, required: true },
     password: { type: String, required: true, minlength: 6 },
     member: { type: Boolean, required: true },
     messages: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
