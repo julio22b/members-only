@@ -1,6 +1,21 @@
-{{#if user}}
-<h2>hello {{user.full_name}}</h2>
+{{#if currentUser}}
+<h2>hello {{currentUser.full_name}}</h2>
 {{/if}}
-{{#if user.member}}
+{{#if currentUser.member}}
 <p>you are a member</p>
 {{/if}}
+<section class="comments">
+    {{#each comments}}
+        <article class="comment">
+            <h2 class="comment-title">{{title}}</h2>
+            <p class="text">{{text}}</p>
+            {{#if currentUser.member}}
+            <p>By {{currentUser.full_name}}</p>
+            <p><small>{{timestamp}}</small></p>
+            {{/if}}
+            {{#unless currentUser.member}}
+            <p>Log in to see who posted this message.</p>
+            {{/unless}}
+        </article>
+    {{/each}}
+</section>

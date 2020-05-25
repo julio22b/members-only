@@ -66,7 +66,11 @@ exports.get_log_out = function (req, res, next) {
 
 //GET HOME
 exports.get_home = function (req, res, next) {
-    res.render('home', { title: 'Home' });
+    Comment.find()
+        .populate('user')
+        .then((comments) => {
+            res.render('home', { title: 'Home', comments });
+        });
 };
 
 //GET NEW MESSAGE FORM

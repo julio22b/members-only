@@ -5,17 +5,20 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    {{#if user}}
+    {{#if currentUser}}
     <ul>
       <li><a href="/new-message">Create message</a></li>
       <li><a href="">Delete message</a></li>
       <li><a href="">View message</a></li>
-      {{#unless user.member}}
+      {{#unless currentUser.member}}
       <li><a href="/become-member">Become a member</a></li>
       {{/unless}}
       <li><a href="/log-out">Log Out</a></li>
     </ul>
     {{/if}}
+    {{#unless currentUser}}
+      <button><a href="/sign-up">Sign up</a></button>
+    {{/unless}}
     {{{body}}}
   </body>
 </html>
