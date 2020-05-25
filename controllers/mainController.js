@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const Comment = require('../models/comment');
+const moment = require('moment');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
@@ -48,7 +50,12 @@ exports.post_member_become = function (req, res, next) {
         res.render('become-member', { title: 'Become a member', errors: errors.errors });
         return;
     }
-    res.redirect('/lol');
+    const updatedUser = {
+        member: true,
+    };
+    User.findByIdAndUpdate(req.user.id, updatedUser).then((updated) => {
+        res.redirect('/home');
+    });
 };
 
 //LOG OUT
@@ -59,5 +66,34 @@ exports.get_log_out = function (req, res, next) {
 
 //GET HOME
 exports.get_home = function (req, res, next) {
-    res.render('home', { title: 'Home', user: req.user });
+    res.render('home', { title: 'Home' });
+};
+
+//GET NEW MESSAGE FORM
+exports.get_new_message_form = function (req, res, next) {
+    res.render('new-message', { title: 'Post a new message' });
+};
+
+//POST A NEW MESSAGE
+exports.post_new_message = function (req, res, next) {
+    const { title, comment } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.render('new-message', {
+            title: 'Post a new message',
+            header: title,
+            comment,
+            errors: errors.errors,
+        });
+        return;
+    }
+    const newComment = new Comment({
+        title,
+        timestamp: moment(),
+        text: comment,
+        user: req.user.id,
+    });
+    newComment.save().then((comment) => {
+        res.redirect('/home');
+    });
 };

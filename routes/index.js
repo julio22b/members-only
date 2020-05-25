@@ -13,7 +13,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/sign-up', mainController.get_sign_up);
 
-//this works without the validation array, but not with it
 router.post(
     '/sign-up',
     [
@@ -64,5 +63,18 @@ router.post(
 router.get('/log-out', mainController.get_log_out);
 
 router.get('/home', mainController.get_home);
+
+router.get('/new-message', mainController.get_new_message_form);
+
+router.post(
+    '/new-message',
+    [
+        check('title', 'Title must be at least 3 characters long')
+            .isLength({ min: 3, max: 30 })
+            .escape(),
+        check('comment', 'You must send a comment').not().isEmpty().escape(),
+    ],
+    mainController.post_new_message,
+);
 
 module.exports = router;
