@@ -1,21 +1,28 @@
 {{#if currentUser}}
 <h2>hello {{currentUser.full_name}}</h2>
 {{/if}}
-{{#if currentUser.member}}
-<p>you are a member</p>
+{{#if currentUser.admin}}
+    <p>You are an Admin</p>
+    {{else}}
+    {{#if currentUser.member}}
+        <p>You are a Member</p>
+    {{/if}}
 {{/if}}
+
 <section class="comments">
     {{#each comments}}
         <article class="comment">
             <h2 class="comment-title">{{title}}</h2>
             <p class="text">{{text}}</p>
-            {{#if currentUser.member}}
-            <p>By {{currentUser.full_name}}</p>
-            <p><small>{{timestamp}}</small></p>
+            {{#if @root.currentUser.member}}
+                <p>By {{user.full_name}}</p>
+                <p><small>{{timestamp}}</small></p>
+            {{else}}
+                <p>Become a member to see who posted this message.</p>
             {{/if}}
-            {{#unless currentUser.member}}
-            <p>Log in to see who posted this message.</p>
-            {{/unless}}
+            {{#if @root.currentUser.admin}}
+                <button><a href="/home/{{id}}/delete">Delete message</a></button>
+            {{/if}}
         </article>
     {{/each}}
 </section>

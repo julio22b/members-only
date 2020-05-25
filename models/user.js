@@ -7,6 +7,7 @@ const UserSchema = new Schema({
     username: { type: String, minlength: 5, required: true },
     password: { type: String, required: true, minlength: 6 },
     member: { type: Boolean, required: true },
+    admin: { type: Boolean, required: true },
     messages: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 

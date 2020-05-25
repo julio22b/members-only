@@ -11,13 +11,19 @@
       <li><a href="">Delete message</a></li>
       <li><a href="">View message</a></li>
       {{#unless currentUser.member}}
-      <li><a href="/become-member">Become a member</a></li>
+      <li><a href="/become-member">Become a Member</a></li>
       {{/unless}}
+      {{#if currentUser.member}}
+        {{#unless currentUser.admin}}
+          <li><a href="/become-admin">Become an Admin</a></li>
+        {{/unless}}
+      {{/if}}
       <li><a href="/log-out">Log Out</a></li>
     </ul>
     {{/if}}
     {{#unless currentUser}}
       <button><a href="/sign-up">Sign up</a></button>
+      <button><a href="/log-in">Log in</a></button>
     {{/unless}}
     {{{body}}}
   </body>

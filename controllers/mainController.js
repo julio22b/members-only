@@ -25,6 +25,7 @@ exports.post_sign_up = function (req, res, next) {
             username,
             password: hashedPassword,
             member: false,
+            admin: false,
         });
         newUser.save().then((doc) => {
             res.redirect('/log-in');
@@ -39,12 +40,11 @@ exports.get_log_in = function (req, res, next) {
 
 //GET 'BECOME A MEMBER' FORM
 exports.get_member_become = function (req, res, next) {
-    res.render('become-member', { title: 'Become a member' });
+    res.render('become-member', { title: 'Become a Member' });
 };
 
 //POST ACCEPT USER REQUEST TO BECOME A MEMBER BY GIVING THE CORRECT PASSWORD
 exports.post_member_become = function (req, res, next) {
-    const { password } = req.body.password;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.render('become-member', { title: 'Become a member', errors: errors.errors });
@@ -98,6 +98,33 @@ exports.post_new_message = function (req, res, next) {
         user: req.user.id,
     });
     newComment.save().then((comment) => {
+        res.redirect('/home');
+    });
+};
+
+// GET BECOME AN ADMIN PAGE FORM
+exports.get_admin_become = function (req, res, next) {
+    res.render('become-admin', { title: 'Becom an Admin' });
+};
+
+// POST BECOME AN ADMIN PAGE DATA
+exports.post_admin_become = function (req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.render('become-admin', { title: 'Become an Admin', errors: errors.errors });
+        return;
+    }
+    const updatedUser = {
+        admin: true,
+    };
+    User.findByIdAndUpdate(req.user.id, updatedUser).then((updated) => {
+        res.redirect('/home');
+    });
+};
+
+//DELETE A MESSAGE
+exports.get_delete_message = function (req, res, next) {
+    Comment.findByIdAndDelete(req.params.id).then((deleted) => {
         res.redirect('/home');
     });
 };

@@ -77,4 +77,18 @@ router.post(
     mainController.post_new_message,
 );
 
+router.get('/become-admin', mainController.get_admin_become);
+
+router.post(
+    '/become-admin',
+    [
+        check('password', 'Incorrect Password')
+            .custom((val, { req }) => val === process.env.ADMIN_PASSWORD)
+            .escape(),
+    ],
+    mainController.post_admin_become,
+);
+
+router.get('/home/:id/delete', mainController.get_delete_message);
+
 module.exports = router;
