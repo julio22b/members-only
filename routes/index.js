@@ -4,6 +4,7 @@ const User = require('../models/user');
 const Comment = require('../models/comment');
 const mainController = require('../controllers/mainController');
 const { check } = require('express-validator');
+const passport = require('passport');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -19,10 +20,12 @@ router.post(
         check('first_name', 'First name must be at least 2 characters long')
             .isLength({ min: 2, max: 15 })
             .escape(),
-        check('last_name', 'Last name must be at least 2 characters long').isLength({
-            min: 2,
-            max: 15,
-        }).escape,
+        check('last_name', 'Last name must be at least 2 characters long')
+            .isLength({
+                min: 2,
+                max: 15,
+            })
+            .escape(),
         check('username', 'Username must be at least 5 characters long')
             .isLength({ min: 5, max: 20 })
             .escape(),
@@ -37,5 +40,29 @@ router.post(
 );
 
 router.get('/log-in', mainController.get_log_in);
+
+router.post(
+    '/log-in',
+    passport.authenticate('local', {
+        successRedirect: '/home',
+        failureRedirect: '/log-in',
+    }),
+);
+
+router.get('/become-member', mainController.get_member_become);
+
+router.post(
+    '/become-member',
+    [
+        check('password', 'Incorrect Password')
+            .custom((val, { req }) => val === process.env.MEMBER_PASSWORD)
+            .escape(),
+    ],
+    mainController.post_member_become,
+);
+
+router.get('/log-out', mainController.get_log_out);
+
+router.get('/home', mainController.get_home);
 
 module.exports = router;
