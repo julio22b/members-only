@@ -1,8 +1,30 @@
+@import 'tailwindcss/base';
+
+@import 'tailwindcss/components';
+
+.form {
+    @apply flex flex-col max-w-md mx-auto my-6 bg-teal-600 py-6 px-10 rounded shadow-lg;
+}
+
+.label {
+    @apply font-bold text-gray-200 text-lg py-4;
+}
+
+.form-button {
+    @apply bg-white text-gray-200 mt-8 p-3 rounded w-32 mx-auto text-teal-700 font-bold;
+}
+
+.form-errors {
+    @apply list-disc font-bold text-red-600 flex flex-col justify-center mb-1 mt-6;
+}
+
+@import 'tailwindcss/utilities';
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 1rem;
+    font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00b7ff;
 }

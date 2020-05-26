@@ -1,12 +1,16 @@
-<form action="" method="POST">
-    <label>To become a Member of this exclusive club, you must enter the password</label>
-    <input type="password" name="password" required>
-    <button>Obtain Membership</button>
-</form>
 {{#if errors}}
-<ul>
+<ul class="form-errors">
     {{#each errors}}
-    <li>{{msg}}</li>
+        <li class="text-center">{{msg}}</li>
     {{/each}}
 </ul>
+{{/if}}
+{{#if currentUser}}
+<form action="" method="POST" class="form">
+    <label class="label">To become a Member of this exclusive club, you must enter the password</label>
+    <input class="p-2 rounded focus:bg-gray-300" type="password" name="password" required>
+    <button class="form-button">Obtain Membership</button>
+</form>
+{{else}}
+<p class="font-bold text-teal-700 text-center mt-8">You must be logged in to become a member</p>
 {{/if}}

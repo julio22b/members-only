@@ -2,29 +2,37 @@
 <html>
   <head>
     <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/output.css' />
   </head>
-  <body>
-    {{#if currentUser}}
-    <ul>
-      <li><a href="/new-message">Create message</a></li>
-      <li><a href="">Delete message</a></li>
-      <li><a href="">View message</a></li>
-      {{#unless currentUser.member}}
-      <li><a href="/become-member">Become a Member</a></li>
-      {{/unless}}
-      {{#if currentUser.member}}
-        {{#unless currentUser.admin}}
-          <li><a href="/become-admin">Become an Admin</a></li>
+  <body class="bg-gray-100 sm:p-4 md:p-6">
+    <header>
+      <nav>
+        <ul class="flex flex-col">
+          <li class="text-6xl text-teal-600 font-bold">Members Club</li>
+          <li class="font-bold text-md hover:underline max-w-xsm inline-block my-2"><a class="py-3" href="/home">Home</a></li>
+          {{#if currentUser}}
+          {{#unless currentUser.member}}
+            <li class="font-bold text-md hover:underline max-w-xsm inline-block my-2"><a class="py-3" href="/become-member">Become a Member</a></li>
+          {{/unless}}
+          
+          {{#if currentUser.member}}
+            <li class="font-bold text-md hover:underline max-w-xsm inline-block my-2"><a class="py-3" href="/new-message">Create message</a></li>
+          {{#unless currentUser.admin}}
+            <li class="font-bold text-md hover:underline max-w-xsm inline-block my-2"><a class="py-3" href="/become-admin">Become an Admin</a></li>
+          {{/unless}}
+          {{/if}}
+            <li class="font-bold text-md hover:underline max-w-xsm inline-block my-2"><a class="py-3" href="/log-out">Log out</a></li>
+          {{/if}}
+        </ul>
+        {{#unless currentUser}}
+        <div class="mt-4">
+          <button class="bg-white p-2 font-bold rounded border-solid border-2 border-teal-600"><a class="text-teal-700" href="/sign-up">Sign up</a></button>
+          <button class="bg-teal-600 p-2 font-bold rounded border-solid border-2 border-teal-600 ml-3"><a class="text-white" href="/log-in">Log in</a></button>
+        </div>
         {{/unless}}
-      {{/if}}
-      <li><a href="/log-out">Log Out</a></li>
-    </ul>
-    {{/if}}
-    {{#unless currentUser}}
-      <button><a href="/sign-up">Sign up</a></button>
-      <button><a href="/log-in">Log in</a></button>
-    {{/unless}}
+        </ul>
+      </nav>
+    </header>
     {{{body}}}
   </body>
 </html>

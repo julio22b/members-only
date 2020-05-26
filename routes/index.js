@@ -53,7 +53,7 @@ router.get('/become-member', mainController.get_member_become);
 router.post(
     '/become-member',
     [
-        check('password', 'Incorrect Password')
+        check('password', 'Incorrect Password. Try PURPLE')
             .custom((val, { req }) => val === process.env.MEMBER_PASSWORD)
             .escape(),
     ],

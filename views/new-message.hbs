@@ -1,19 +1,20 @@
 {{#if currentUser}}
-    <h2>Create your message</h2>
-    <form action="" method="POST">
-        <label for="title">Title:</label>
-        <input type="text" name="title" required minlength="3" value="{{header}}">
-        <label for="comment">Comment:</label>
-        <textarea name="comment" cols="30" rows="10">{{comment}}</textarea>
-        <button>Post message</button>
+    <h2 class="text-center font-bold text-teal-700 text-3xl">Create your message</h2>
+        {{#if errors}}
+        <ul class="list-disc font-bold text-red-600 flex flex-col justify-center mb-1 mt-6">
+            {{#each errors}}
+            <li class="text-center">{{msg}}</li>
+            {{/each}}
+        </ul>
+        {{/if}}
+        <form action="" method="POST" class="form">
+        <label class="label" for="title">Title:</label>
+        <input class="p-2 rounded focus:bg-gray-300" type="text" name="title" required minlength="3" value="{{header}}">
+        <label class="label" for="comment">Comment:</label>
+        <textarea class="p-2 rounded focus:bg-gray-300" name="comment" cols="30" rows="10">{{comment}}</textarea>
+        <button class="form-button">Post message</button>
     </form>
-    {{#if errors}}
-    <ul>
-        {{#each errors}}
-        <li>{{msg}}</li>
-        {{/each}}
-    </ul>
-    {{/if}}
+    
 {{else}}
     <p>You need to be logged in to post a new message</p>
 {{/if}}
