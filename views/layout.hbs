@@ -13,10 +13,9 @@
           {{#if currentUser}}
           {{#unless currentUser.member}}
             <li class="font-bold text-md hover:underline max-w-xsm inline-block my-2"><a class="py-3" href="/become-member">Become a Member</a></li>
-          {{/unless}}
-          
-          {{#if currentUser.member}}
+          {{/unless}}        
             <li class="font-bold text-md hover:underline max-w-xsm inline-block my-2"><a class="py-3" href="/new-message">Create message</a></li>
+          {{#if currentUser.member}}
           {{#unless currentUser.admin}}
             <li class="font-bold text-md hover:underline max-w-xsm inline-block my-2"><a class="py-3" href="/become-admin">Become an Admin</a></li>
           {{/unless}}
