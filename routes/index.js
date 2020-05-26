@@ -46,7 +46,7 @@ router.post(
         successRedirect: '/home',
         failureRedirect: '/log-in',
         failureFlash: true,
-    }),
+    })
 );
 
 router.get('/become-member', mainController.get_member_become);
@@ -58,7 +58,7 @@ router.post(
             .custom((val, { req }) => val === process.env.MEMBER_PASSWORD)
             .escape(),
     ],
-    mainController.post_member_become,
+    mainController.post_member_become
 );
 
 router.get('/log-out', mainController.get_log_out);
@@ -75,7 +75,7 @@ router.post(
             .escape(),
         check('comment', 'You must send a comment').not().isEmpty().escape(),
     ],
-    mainController.post_new_message,
+    mainController.post_new_message
 );
 
 router.get('/become-admin', mainController.get_admin_become);
@@ -87,7 +87,7 @@ router.post(
             .custom((val, { req }) => val === process.env.ADMIN_PASSWORD)
             .escape(),
     ],
-    mainController.post_admin_become,
+    mainController.post_admin_become
 );
 
 router.get('/home/:id/delete', mainController.get_delete_message);
