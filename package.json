@@ -7,6 +7,9 @@
         "dev": "DEBUG=members-only:* nodemon ./bin/www",
         "tailwind": "npx tailwindcss build ./public/stylesheets/style.css -o ./public/stylesheets/output.css"
     },
+    "engines": {
+        "node": "6.14.5"
+    },
     "dependencies": {
         "bcryptjs": "^2.4.3",
         "connect-flash": "^0.1.1",
