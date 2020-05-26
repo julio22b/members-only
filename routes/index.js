@@ -35,7 +35,7 @@ router.post(
             .custom((val, { req }) => val === req.body.password)
             .escape(),
     ],
-    mainController.post_sign_up,
+    mainController.post_sign_up
 );
 
 router.get('/log-in', mainController.get_log_in);
