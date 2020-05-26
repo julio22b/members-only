@@ -35,7 +35,7 @@ exports.post_sign_up = function (req, res, next) {
 
 //GET LOG IN FORM
 exports.get_log_in = function (req, res, next) {
-    res.render('log-in', { errors: 'errorred' });
+    res.render('log-in', { error: req.flash('error') });
 };
 
 //GET 'BECOME A MEMBER' FORM
@@ -93,7 +93,7 @@ exports.post_new_message = function (req, res, next) {
     }
     const newComment = new Comment({
         title,
-        timestamp: moment(),
+        timestamp: moment().format('MMMM Do YYYY [at] HH:mm:ss'),
         text: comment,
         user: req.user.id,
     });
